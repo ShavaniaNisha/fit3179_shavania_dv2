@@ -1,0 +1,98 @@
+
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "How Have Rabbit Occurrence Records Changed Across Australia?",
+    "subtitle": "Recorded rabbit occurrences by state and year"
+  },
+  "width": 800,
+  "height": 350,
+  "data": {
+    "url": "data/rabbit_year_state_counts.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "transform": [
+    {
+      "filter": "isValid(datum.RecordYear) && datum.RecordYear != '' && isValid(datum.AustraliaState) && datum.AustraliaState != ''"
+    },
+    {
+      "calculate": "toNumber(datum.RecordYear)",
+      "as": "RecordYear"
+    },
+    {
+      "calculate": "toNumber(datum.RecordCount)",
+      "as": "RecordCount"
+    },
+    {
+      "filter": "isValid(datum.RecordYear) && isValid(datum.RecordCount) && datum.RecordCount > 0"
+    }
+  ],
+  "mark": {
+    "type": "rect",
+    "stroke": "#ffffff",
+    "strokeWidth": 0.5
+  },
+  "encoding": {
+    "x": {
+      "field": "RecordYear",
+      "type": "ordinal",
+      "title": "Year",
+      "axis": {
+        "labelAngle": -45,
+        "labelOverlap": true
+      }
+    },
+    "y": {
+      "field": "AustraliaState",
+      "type": "nominal",
+      "title": "State / Territory",
+      "sort": [
+        "QLD",
+        "VIC",
+        "NSW",
+        "WA",
+        "SA",
+        "TAS",
+        "ACT",
+        "NT"
+      ]
+    },
+    "color": {
+      "field": "RecordCount",
+      "type": "quantitative",
+      "title": "Occurrence records",
+      "scale": {
+        "scheme": "reds"
+      },
+      "legend": {
+        "orient": "right",
+        "format": "~s"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "AustraliaState",
+        "type": "nominal",
+        "title": "State / Territory"
+      },
+      {
+        "field": "RecordYear",
+        "type": "ordinal",
+        "title": "Year"
+      },
+      {
+        "field": "RecordCount",
+        "type": "quantitative",
+        "title": "Occurrence records",
+        "format": ",.0f"
+      }
+    ]
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    }
+  }
+}

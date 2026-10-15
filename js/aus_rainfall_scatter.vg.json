@@ -1,0 +1,132 @@
+ 
+
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Does Rainfall Influence Rabbit Abundance in Australia?",
+    "subtitle": "Long-term average annual rainfall versus spotlight-survey rabbit abundance"
+  },
+  "width": 750,
+  "height": 420,
+  "data": {
+    "url": "data/SI2_DataAbundance.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "transform": [
+    {
+      "calculate": "toNumber(datum.A_Prec_Avg30Yr)",
+      "as": "Rainfall"
+    },
+    {
+      "calculate": "toNumber(datum.RabbitsPerKm)",
+      "as": "Abundance"
+    },
+    {
+      "filter": "isValid(datum.Rainfall) && isValid(datum.Abundance) && datum.Rainfall > 0 && datum.Abundance >= 0"
+    },
+    {
+      "filter": "StateFilter == 'All' || datum.AustraliaState == StateFilter"
+    }
+  ],
+  "params": [
+    {
+      "name": "StateFilter",
+      "value": "All",
+      "bind": {
+        "input": "select",
+        "name": "State: ",
+        "options": [
+          "All",
+          "NSW",
+          "VIC",
+          "QLD",
+          "SA",
+          "WA",
+          "TAS",
+          "ACT",
+          "NT"
+        ]
+      }
+    }
+  ],
+  "layer": [
+    {
+      "mark": {
+        "type": "circle",
+        "color": "#B54A42",
+        "size": 25,
+        "opacity": 0.15
+      },
+      "encoding": {
+        "x": {
+          "field": "Rainfall",
+          "type": "quantitative",
+          "title": "Average annual rainfall (mm)"
+        },
+        "y": {
+          "field": "Abundance",
+          "type": "quantitative",
+          "title": "Rabbits per kilometre"
+        },
+        "tooltip": [
+          {
+            "field": "AustraliaState",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "Year",
+            "type": "quantitative",
+            "format": "d",
+            "title": "Survey year"
+          },
+          {
+            "field": "Rainfall",
+            "type": "quantitative",
+            "format": ",.1f",
+            "title": "Average annual rainfall (mm)"
+          },
+          {
+            "field": "Abundance",
+            "type": "quantitative",
+            "format": ",.2f",
+            "title": "Rabbits per km"
+          }
+        ]
+      }
+    },
+    {
+      "transform": [
+        {
+          "regression": "Abundance",
+          "on": "Rainfall"
+        }
+      ],
+      "mark": {
+        "type": "line",
+        "color": "#263B53",
+        "strokeWidth": 3
+      },
+      "encoding": {
+        "x": {
+          "field": "Rainfall",
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "Abundance",
+          "type": "quantitative"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "gridColor": "#e8e8e8"
+    }
+  }
+}

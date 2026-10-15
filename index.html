@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Australia's Rabbit Footprint</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Vega-Lite libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+</head>
+
+<body>
+    <main class="container">
+
+        <!-- WEBSITE INTRODUCTION -->
+        <header>
+            <p class="eyebrow">
+                AN AUSTRALIAN ENVIRONMENTAL DATA VISUALISATION
+            </p>
+
+            <h1>The Rabbit Footprint</h1>
+
+            <p class="hero-subtitle">
+                Exploring rabbit distribution, recording patterns and environmental
+                influences across Australia.
+            </p>
+        </header>
+
+        <div class="story-intro">
+            <p>
+                European rabbits are widespread across the Australian landscape.
+                However, recorded sightings do not equal population estimates.
+                Survey coverage also differs between regions and years.
+            </p>
+
+            <p>
+                This visualisation explores rabbit occurrence, abundance and environmental patterns.
+                Together, these datasets reveal patterns and important limitations.
+            </p>
+
+            <p class="data-note">
+                <strong>How to read the data:</strong>
+                Occurrence records show where rabbits were reported.
+                Abundance surveys measure rabbits observed per kilometre.
+                Neither dataset provides a complete rabbit population census.
+            </p>
+        </div>
+
+        <div class="chapter-heading">
+            <h2>TWhat Do Rabbit Records Tell Us?</h2>
+            <p>
+                Before examining where rabbits occur, we first
+                need to understand how the evidence was collected.
+                A dramatic rise in records does not necessarily
+                mean a dramatic rise in rabbit numbers.
+            </p>
+        </div>
+
+        <section>
+            <div id="aus_history_area" class="chart"></div>
+
+            <p class="annotation">
+                <strong>A surge in records, not necessarily rabbits.</strong>
+                Recording activity increased sharply during the late 2000s.
+            </p>
+
+        </section>
+
+        <section>
+            <div id="aus_datasrc_dot" class="chart"></div>
+
+            <p class="annotation">
+                <strong>One source dominates the database.</strong>
+                This concentration strongly influences the overall reporting pattern
+            </p>
+
+        </section>
+
+        <div class="chapter-heading">
+            <h2>Where and When Were Rabbits Recorded?</h2>
+            <p>
+                Rabbit occurrence records are unevenly distributed
+                across Australia and through time. The next three
+                visualisations explore the reported geographic
+                patterns, their history, and the individual grid
+                cells where observations were made.
+            </p>
+        </div>
+
+        <section>
+            <div id="aus_state_bar" class="chart"></div>
+
+            <p class="annotation">
+                <strong>Recorded totals vary considerably between Australian states</strong>
+                Differences may reflect unequal monitoring and reporting effort.
+            </p>
+        </section>
+
+        <section>
+            <div id="aus_history_heatmap" class="chart"></div>
+
+            <p class="annotation">
+                <strong>Reporting patterns change across both years and states.</strong>
+                Darker cells represent higher numbers of occurrence records
+            </p>
+
+        </section>
+
+        <section>
+            <div id="aus_occurrence_density" class="chart"></div>
+
+            <p class="annotation">
+                <strong>Each dot represents one occupied survey grid cell.</strong>
+                Multiple occurrence records can share the same cell.
+            </p>
+
+        </section>
+
+        <div class="chapter-heading">
+            <h2>How Many Rabbits Are There?</h2>
+            <p>
+                Occurrence data shows where rabbits have been
+                reported. Abundance surveys provide a different
+                perspective by measuring rabbits observed
+                per kilometre. These measurements help us
+                compare survey outcomes across places and seasons.
+            </p>
+        </div>
+
+        <section>
+            <div id="aus_choropleth" class="chart"></div>
+
+            <p class="annotation">
+                <strong>Extreme survey values influence the overall seasonal distributions.</strong>
+                Median values provide a more representative comparison.
+            </p>
+        </section>
+
+        <section>
+            <div id="aus_boxplot" class="chart"></div>
+
+            <p class="annotation">
+                <strong>Extreme observations shape the distribution.</strong>
+                Some surveys recorded much higher rabbits-per-
+                kilometre values than most others. Compare
+                the medians and the spread of observations
+                rather than relying only on the highest points.
+            </p>
+        </section>
+
+        <div class="chapter-heading">
+            <h2>How Does Rainfall Relate to Rabbit Abundance</h2>
+            <p>
+                Rabbit abundance may vary with environmental
+                conditions, but individual factors rarely
+                tell the whole story. Our final visualisation
+                examines how surveyed abundance relates to
+                long-term average rainfall.
+            </p>
+        </div>
+
+        <section>
+            <div id="aus_rainfall_scatter" class="chart"></div>
+
+            <p class="annotation">
+                <strong>Similar rainfall levels can produce different abundance observations.</strong>
+                The regression line shows association, not causation.
+            </p>
+
+        </section>
+
+        <!-- FINAL TAKEAWAY -->
+        <div class="conclusion">
+            <h2>What Does the Rabbit Footprint Reveal?</h2>
+
+            <p>
+                Rabbit records provide valuable evidence of
+                occurrence across Australia, but they also
+                reveal the uneven nature of monitoring.
+                Differences in data sources, survey locations
+                and observation methods shape the patterns
+                visible in the database.
+            </p>
+
+            <p>
+                By separating occurrence records from abundance
+                measurements, we gain a more careful view of
+                rabbit distribution and environmental variation.
+                The key lesson is that understanding an invasive
+                species requires understanding the data used
+                to describe it.
+            </p>
+        </div>
+
+        <!-- METADATA -->
+        <footer>
+            <p>
+                <strong>Data:</strong>
+                Roy-Dufresne, E., M. Lurgi, S. C. Brown, K. Wells, B. Cooke, G. Mutze, D. Peacock, P. Cassey, D. Berman, B. W. Brook, et
+                al. 2019. The Australian National Rabbit Database: 50 yr of population monitoring of an invasive species. Ecology
+                100(7):e02750. 10.1002/ecy.2750.
+            </p>
+
+            <p>
+                <strong>Author Details:</strong>
+                Shavania Basandan (35394943) · FIT3179 Data
+                Visualisation 2
+            </p>
+
+        </footer>
+
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

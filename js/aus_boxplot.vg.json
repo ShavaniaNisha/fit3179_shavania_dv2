@@ -1,0 +1,82 @@
+ 
+
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "How Does Rabbit Abundance Vary Across Seasons?",
+    "subtitle": "Distribution of rabbits recorded per kilometre in spotlight surveys",
+    "subtitle": "Rabbit abundance by survey season (coded 1–4 in source data)"
+    
+  },
+  "width": 700,
+  "height": 420,
+  "data": {
+    "url": "data/SI2_DataAbundance.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "transform": [
+    {
+      "calculate": "toNumber(datum.RabbitsPerKm)",
+      "as": "Abundance"
+    },
+    {
+      "calculate": "toNumber(datum.Season)",
+      "as": "SeasonCode"
+    },
+    {
+      "filter": "isValid(datum.Abundance) && datum.Abundance >= 0 && isValid(datum.SeasonCode) && datum.SeasonCode >= 1 && datum.SeasonCode <= 4"
+    },
+    {
+      "calculate": "'Season ' + datum.SeasonCode",
+      "as": "SeasonLabel"
+    }
+  ],
+  "mark": {
+    "type": "boxplot",
+    "extent": 1.5,
+    "size": 60,
+    "color": "#B54A42",
+    "median": {
+      "color": "#263B53"
+    },
+    "outliers": {
+      "color": "#B54A42",
+      "opacity": 0.2,
+      "size": 12
+    }
+  },
+  "encoding": {
+    "x": {
+      "field": "SeasonLabel",
+      "type": "nominal",
+      "title": "Season",
+      "sort": [
+        "Season 1",
+        "Season 2",
+        "Season 3",
+        "Season 4"
+      ],
+      "axis": {
+        "labelFontSize": 12
+      }
+    },
+    "y": {
+      "field": "Abundance",
+      "type": "quantitative",
+      "title": "Rabbits per kilometre",
+      "scale": {
+        "zero": true
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "gridColor": "#e8e8e8"
+    }
+  }
+}

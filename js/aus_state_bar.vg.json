@@ -1,0 +1,76 @@
+
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Where Are Rabbit Occurrences Recorded in Australia?",
+    "subtitle": "Number of occurrence records by state and territory"
+  },
+  "width": 680,
+  "height": 340,
+  "data": {
+    "url": "data/rabbit_state_counts.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "transform": [
+    {
+      "filter": "isValid(datum.AustraliaState) && datum.AustraliaState != ''"
+    },
+    {
+      "calculate": "toNumber(datum.RecordCount)",
+      "as": "RecordCount"
+    },
+    {
+      "filter": "isValid(datum.RecordCount) && datum.RecordCount > 0"
+    }
+  ],
+  "mark": {
+    "type": "bar",
+    "color": "#B54A42",
+    "cornerRadiusEnd": 4
+  },
+  "encoding": {
+    "y": {
+      "field": "AustraliaState",
+      "type": "nominal",
+      "title": "State / Territory",
+      "sort": "-x",
+      "axis": {
+        "labelFontSize": 12
+      }
+    },
+    "x": {
+      "field": "RecordCount",
+      "type": "quantitative",
+      "title": "Number of occurrence records",
+      "axis": {
+        "format": "~s",
+        "grid": true
+      }
+    },
+    "tooltip": [
+      {
+        "field": "AustraliaState",
+        "type": "nominal",
+        "title": "State / Territory"
+      },
+      {
+        "field": "RecordCount",
+        "type": "quantitative",
+        "title": "Occurrence records",
+        "format": ",.0f"
+      }
+    ]
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "gridColor": "#e8e8e8",
+      "domain": false,
+      "tickColor": "#cccccc"
+    }
+  }
+}
