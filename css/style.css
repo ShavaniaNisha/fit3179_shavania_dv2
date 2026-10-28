@@ -92,7 +92,7 @@ section {
 
 section p {
   color: #604b3d;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
   line-height: 1.7;
 }
 
@@ -103,7 +103,7 @@ section p {
   border-left: 4px solid #b54a42;
   border-radius: 0 8px 8px 0;
   color: #51372c;
-  font-size: 1.3rem;
+  font-size: 20px;
   line-height: 1.6;
 }
 
@@ -188,7 +188,7 @@ footer {
 }
 
 .story-introduction {
-  font-size: 1.15rem;
+  font-size: 1.4rem;
   line-height: 1.75;
   margin: 0 0 24px;
 }
@@ -252,7 +252,7 @@ footer {
 /* Analytical annotation  */
 
 .story-section .annotation {
-  font-size: 1rem;
+  font-size: 20px;
   margin-top: 18px;
 }
 
@@ -366,7 +366,7 @@ footer {
 }
 
 .story-intro p {
-  font-size: 1.1rem;
+  font-size: 1.3rem;
   line-height: 1.75;
   margin: 0 0 16px;
 }
@@ -465,6 +465,19 @@ footer {
 
   .story-intro p,
   .story-conclusion p {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
+}
+
+/* Chart annotation typography */
+.story-section .chart-card > p.annotation {
+  font-size: 20px;
+  line-height: 1.65;
+  color: #51372c;
+}
+
+.story-section .chart-card > p.chart-note {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #735d4d;
 }
