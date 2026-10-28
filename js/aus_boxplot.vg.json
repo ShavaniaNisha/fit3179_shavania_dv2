@@ -1,0 +1,83 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "transparent",
+  "width": "container",
+  "height": 340,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "data": {
+    "url": "data/SI2_DataAbundance.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "transform": [
+    {
+      "calculate": "toNumber(datum.RabbitsPerKm)",
+      "as": "Abundance"
+    },
+    {
+      "calculate": "toNumber(datum.Season)",
+      "as": "SeasonCode"
+    },
+    {
+      "filter": "isValid(datum.Abundance) && datum.Abundance >= 0 && isValid(datum.SeasonCode) && datum.SeasonCode >= 1 && datum.SeasonCode <= 4"
+    },
+    {
+      "calculate": "'Season ' + datum.SeasonCode",
+      "as": "SeasonLabel"
+    }
+  ],
+  "mark": {
+    "type": "boxplot",
+    "extent": 1.5,
+    "size": 60,
+    "color": "#B54A42",
+    "median": {
+      "color": "#263B53"
+    },
+    "outliers": {
+      "color": "#B54A42",
+      "opacity": 0.2,
+      "size": 12
+    }
+  },
+  "encoding": {
+    "x": {
+      "field": "SeasonLabel",
+      "type": "nominal",
+      "title": "Season",
+      "sort": ["Season 1", "Season 2", "Season 3", "Season 4"],
+      "axis": {
+        "labelAngle": 0,
+        "labelFontSize": 12
+      }
+    },
+    "y": {
+      "field": "Abundance",
+      "type": "quantitative",
+      "title": "Rabbits per kilometre",
+      "scale": {
+        "zero": true
+      }
+    }
+  },
+  "config": {
+    "view": {
+      "stroke": null,
+      "fill": "transparent"
+    },
+    "axis": {
+      "gridColor": "#D9CABB",
+      "labelFont": "Arial",
+      "labelColor": "#735D4D",
+      "labelFontSize": 12,
+      "titleFont": "Arial",
+      "titleColor": "#51372C",
+      "titleFontSize": 13,
+      "titleFontWeight": "bold"
+    }
+  }
+}

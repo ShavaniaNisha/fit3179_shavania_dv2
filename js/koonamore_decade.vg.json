@@ -1,0 +1,133 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 300,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "background": "transparent",
+  "data": {
+    "url": "data/koonamore_decade.csv"
+  },
+  "transform": [
+    {
+      "calculate": "datum.Decade + 's'",
+      "as": "DecadeLabel"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "Decade",
+      "type": "ordinal",
+      "sort": "ascending",
+      "axis": {
+        "title": null,
+        "labels": false,
+        "ticks": false,
+        "domain": false
+      }
+    },
+    "y": {
+      "datum": 0,
+      "type": "quantitative",
+      "scale": {
+        "domain": [-1, 1]
+      },
+      "axis": null
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "color": "#C46A32",
+        "strokeWidth": 3
+      }
+    },
+    {
+      "mark": {
+        "type": "circle",
+        "filled": true,
+        "color": "#F3D4B9",
+        "stroke": "#B54A42",
+        "strokeWidth": 2.5
+      },
+      "encoding": {
+        "size": {
+          "field": "AverageWarrens",
+          "type": "quantitative",
+          "scale": {
+            "range": [400, 5000]
+          },
+          "legend": null
+        },
+        "tooltip": [
+          {
+            "field": "DecadeLabel",
+            "type": "nominal",
+            "title": "Decade"
+          },
+          {
+            "field": "AverageWarrens",
+            "type": "quantitative",
+            "title": "Average warrens per survey",
+            "format": ".2f"
+          },
+          {
+            "field": "SurveyCount",
+            "type": "quantitative",
+            "title": "Number of surveys"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "font": "Arial",
+        "fontSize": 14,
+        "fontWeight": "bold",
+        "color": "#51372C",
+        "dy": 60,
+        "baseline": "top"
+      },
+      "encoding": {
+        "text": {
+          "field": "DecadeLabel",
+          "type": "nominal"
+        }
+      }
+    }
+  ],
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "Arial",
+      "labelFontSize": 12,
+      "labelFontWeight": "normal",
+      "labelColor": "#735D4D",
+
+      "titleFont": "Arial",
+      "titleFontSize": 14,
+      "titleFontWeight": "bold",
+      "titleColor": "#51372C",
+
+      "gridColor": "#D9CABB",
+      "domainColor": "#8B7462",
+      "tickColor": "#8B7462"
+    },
+    "legend": {
+      "labelFont": "Arial",
+      "labelFontSize": 12,
+      "labelColor": "#604B3D",
+      "titleFont": "Arial",
+      "titleFontSize": 13,
+      "titleFontWeight": "bold",
+      "titleColor": "#51372C"
+    }
+  }
+}

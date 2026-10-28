@@ -1,0 +1,135 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "transparent",
+  "width": "container",
+  "height": 340,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "data": {
+    "url": "data/aus_state_timeline.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "encoding": {
+    "x": {
+      "field": "Period",
+      "type": "ordinal",
+      "sort": ["2000-2004", "2005-2009", "2010-2014"],
+      "axis": {
+        "title": "Survey period",
+        "labelAngle": 0,
+        "labelPadding": 10
+      }
+    },
+    "y": {
+      "field": "Rank",
+      "type": "quantitative",
+      "scale": {
+        "domain": [0.8, 5.2],
+        "reverse": true,
+        "nice": false
+      },
+      "axis": {
+        "title": "Abundance rank",
+        "values": [1, 2, 3, 4, 5],
+        "grid": true
+      }
+    },
+    "color": {
+      "field": "AustraliaState",
+      "type": "nominal",
+      "title": "State / territory",
+      "scale": {
+        "domain": ["ACT", "SA", "TAS", "VIC", "WA"],
+        "range": ["#2B7A78", "#C76B60", "#8A7BB8", "#3C75AE", "#D49A39"]
+      },
+      "legend": {
+        "orient": "bottom",
+        "direction": "horizontal",
+        "columns": 5,
+        "title": null
+      }
+    },
+    "tooltip": [
+      {
+        "field": "AustraliaState",
+        "type": "nominal",
+        "title": "State"
+      },
+      {
+        "field": "Period",
+        "type": "nominal",
+        "title": "Survey period"
+      },
+      {
+        "field": "Rank",
+        "type": "quantitative",
+        "title": "Rank",
+        "format": ".0f"
+      },
+      {
+        "field": "MeanRabbitsPerKm",
+        "type": "quantitative",
+        "title": "Mean rabbits/km",
+        "format": ".2f"
+      },
+      {
+        "field": "SurveyCount",
+        "type": "quantitative",
+        "title": "Survey observations",
+        "format": ",.0f"
+      }
+    ]
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "line",
+        "strokeWidth": 3.5
+      },
+      "encoding": {
+        "detail": {
+          "field": "AustraliaState",
+          "type": "nominal"
+        },
+        "order": {
+          "field": "Period",
+          "type": "ordinal",
+          "sort": "ascending"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "circle",
+        "size": 125,
+        "filled": true,
+        "stroke": "#EAE0D2",
+        "strokeWidth": 1.5
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "gridColor": "#D9CABB",
+      "labelFont": "Arial",
+      "labelColor": "#735D4D",
+      "labelFontSize": 12,
+      "titleFont": "Arial",
+      "titleColor": "#51372C",
+      "titleFontSize": 14,
+      "titleFontWeight": "bold"
+    },
+    "legend": {
+      "labelFont": "Arial",
+      "labelColor": "#735D4D",
+      "labelFontSize": 12
+    }
+  }
+}

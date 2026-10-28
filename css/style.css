@@ -1,0 +1,470 @@
+/* Global styles */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f7f5f0;
+  color: #604b3d;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+}
+
+/*  Layout  */
+
+.container {
+  width: min(1100px, 94%);
+  margin: 0 auto;
+}
+
+main.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 35px 24px 60px;
+}
+
+/*  Header  */
+
+header {
+  padding: 75px 20px 45px;
+  text-align: center;
+}
+
+h1 {
+  margin: 0 0 14px;
+  color: #51372c;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+}
+
+header p {
+  max-width: 700px;
+  margin: 0 auto;
+  color: #735d4d;
+  font-size: 1.5rem;
+  line-height: 1.7;
+}
+
+/*  Section headings  */
+
+h2,
+h3 {
+  color: #51372c;
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.3;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-top: 0;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+/* Chart sections */
+
+section {
+  margin-bottom: 34px;
+  padding: 32px;
+  background: #eae0d2;
+  border: 1px solid #d9cabb;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(81, 55, 44, 0.05);
+}
+
+/* Vega-Lite chart containers */
+
+.chart {
+  width: 100%;
+  min-height: 300px;
+  margin: 20px 0 12px;
+  overflow-x: auto;
+}
+
+/*  Supporting text and annotations */
+
+section p {
+  color: #604b3d;
+  font-size: 1.2rem;
+  line-height: 1.7;
+}
+
+.annotation {
+  margin-top: 18px;
+  padding: 14px 18px;
+  background: #f5ede2;
+  border-left: 4px solid #b54a42;
+  border-radius: 0 8px 8px 0;
+  color: #51372c;
+  font-size: 1.3rem;
+  line-height: 1.6;
+}
+
+/*  Footer  */
+
+footer {
+  padding: 30px 20px 45px;
+  text-align: center;
+  color: #8b7462;
+  font-size: 0.85rem;
+}
+
+/*  Responsive layout  */
+
+@media (max-width: 768px) {
+  header {
+    padding: 50px 18px 30px;
+  }
+
+  main.container {
+    padding: 20px 12px 45px;
+  }
+
+  section {
+    padding: 20px 14px;
+    margin-bottom: 22px;
+  }
+
+  .chart {
+    margin-top: 15px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+  }
+}
+
+.chapter-heading {
+  margin: 48px 0 24px;
+  padding-top: 20px;
+  border-top: 4px solid #bdaa98;
+}
+
+.chapter-heading h2 {
+  margin: 0 0 12px;
+  color: #51372c;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2rem;
+  line-height: 1.25;
+}
+
+.chapter-heading p {
+  max-width: 850px;
+  margin: 0;
+  color: #604b3d;
+  font-size: 1.15rem;
+  line-height: 1.75;
+}
+
+/*  Reusable story and chart layout  */
+
+.story-section {
+  margin: 48px 0;
+}
+
+.story-title {
+  background: #51372c;
+  color: #ffffff;
+  padding: 18px 24px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.story-title h2 {
+  color: #ffffff;
+  margin: 0;
+  font-size: 1.9rem;
+}
+
+.story-introduction {
+  font-size: 1.15rem;
+  line-height: 1.75;
+  margin: 0 0 24px;
+}
+
+/* One-column and two-column chart layout */
+
+.chart-layout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  align-items: stretch;
+}
+
+.chart-full {
+  grid-column: 1 / -1;
+}
+
+.chart-half {
+  grid-column: span 1;
+}
+
+/* Reusable chart cards */
+
+.story-section .chart-card {
+  min-width: 0;
+  margin: 0;
+  padding: 24px;
+  background: #eae0d2;
+  border: 1px solid #d9cabb;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(81, 55, 44, 0.05);
+}
+
+.chart-heading {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.35rem;
+  color: #51372c;
+  margin: 0 0 10px;
+}
+
+.story-section .chart-card > p {
+  font-size: 1.05rem;
+  line-height: 1.65;
+}
+
+.story-section .chart {
+  width: 100%;
+  min-width: 0;
+  overflow-x: hidden;
+  margin: 18px 0;
+}
+
+/* Explanation of visual encodings */
+
+.chart-note {
+  font-size: 0.95rem;
+  color: #735d4d;
+  margin: 8px 0;
+}
+
+/* Analytical annotation  */
+
+.story-section .annotation {
+  font-size: 1rem;
+  margin-top: 18px;
+}
+
+/* Responsive stacking */
+
+@media (max-width: 850px) {
+  .chart-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-full,
+  .chart-half {
+    grid-column: 1;
+  }
+
+  .story-section .chart-card {
+    padding: 18px;
+  }
+}
+
+/*  Reusable chart grid */
+
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+/* Chart cards */
+.chart-card {
+  min-width: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Full-width chart */
+.chart-full {
+  grid-column: 1 / -1;
+}
+
+/* Half-width chart */
+.chart-half {
+  grid-column: span 1;
+}
+
+/* Chart title */
+.chart-card h3 {
+  margin: 0 0 12px;
+  font-family: Georgia, "Times New Roman", serif;
+  color: #51372c;
+  font-size: 1.5rem;
+  line-height: 1.3;
+}
+
+/* Chart description */
+.chart-card > p {
+  margin: 0 0 16px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* Chart area */
+.chart-card .chart {
+  width: 100%;
+  min-width: 0;
+  margin: 10px 0 20px;
+}
+
+/* Keep annotations near the bottom */
+.chart-card .annotation {
+  margin-top: auto;
+}
+
+/* Smaller screens */
+@media (max-width: 900px) {
+  .chart-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-full,
+  .chart-half {
+    grid-column: 1;
+  }
+}
+
+.story-hero {
+  background: #51372c;
+  color: #f7f5f0;
+  border-radius: 12px;
+  padding: 42px 32px;
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.story-hero h1 {
+  color: #f7f5f0;
+}
+
+.story-hero .hero-subtitle {
+  color: #eae0d2;
+  font-size: 1.2rem;
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.story-intro {
+  margin-bottom: 40px;
+}
+
+.story-intro p {
+  font-size: 1.1rem;
+  line-height: 1.75;
+  margin: 0 0 16px;
+}
+
+.data-note {
+  padding: 16px 20px;
+  background: #f5ede2;
+  border-left: 4px solid #b54a42;
+  border-radius: 0 8px 8px 0;
+}
+
+/* Conclusion  */
+
+.story-conclusion {
+  background: #51372c;
+  color: #f7f5f0;
+  border: none;
+  border-radius: 12px;
+  padding: 36px 32px;
+  margin-top: 50px;
+  margin-bottom: 45px;
+}
+
+.story-conclusion h2 {
+  color: #f7f5f0;
+  margin-bottom: 20px;
+}
+
+.story-conclusion p {
+  color: #eae0d2;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+/* References and data sources */
+
+.references-section {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  border-top: 2px solid #d9cabb;
+  border-radius: 0;
+  padding: 30px 0;
+  margin-bottom: 15px;
+}
+
+.references-section h2 {
+  font-size: 1.7rem;
+  margin-bottom: 24px;
+}
+
+.references-section h3 {
+  font-size: 1.2rem;
+  margin: 24px 0 10px;
+}
+
+.references-section p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+/* Website footer */
+
+.site-footer {
+  border-top: 1px solid #d9cabb;
+  padding: 25px 0 40px;
+  text-align: center;
+}
+
+.site-footer strong {
+  color: #51372c;
+  font-size: 1rem;
+}
+
+.site-footer p {
+  color: #8b7462;
+  font-size: 0.9rem;
+  margin: 8px 0 0;
+}
+
+/*  Responsive adjustments */
+
+@media (max-width: 768px) {
+  .story-hero {
+    padding: 32px 20px;
+  }
+
+  .story-hero .hero-subtitle {
+    font-size: 1.05rem;
+  }
+
+  .story-conclusion {
+    padding: 28px 20px;
+  }
+
+  .story-intro p,
+  .story-conclusion p {
+    font-size: 1rem;
+  }
+}

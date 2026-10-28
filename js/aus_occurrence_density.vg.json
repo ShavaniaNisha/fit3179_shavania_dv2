@@ -1,0 +1,218 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "transparent",
+  "width": "container",
+  "height": 350,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "projection": {
+    "type": "mercator",
+    "center": [134, -28],
+    "scale": 460
+  },
+  "layer": [
+    {
+      "data": {
+        "sphere": true
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#E5F0F4"
+      }
+    },
+    {
+      "data": {
+        "graticule": {
+          "step": [5, 5]
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": null,
+        "stroke": "#B5CED7",
+        "strokeWidth": 0.7
+      }
+    },
+    {
+      "data": {
+        "url": "data/au-states-topo.json",
+        "format": {
+          "type": "topojson",
+          "feature": "austates"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#F5F1EB",
+        "stroke": "#9C9185",
+        "strokeWidth": 0.7
+      }
+    },
+    {
+      "data": {
+        "url": "data/rabbit_grid_counts.csv",
+        "format": {
+          "type": "csv"
+        }
+      },
+      "transform": [
+        {
+          "calculate": "toNumber(datum.Longitude)",
+          "as": "Longitude"
+        },
+        {
+          "calculate": "toNumber(datum.Latitude)",
+          "as": "Latitude"
+        },
+        {
+          "calculate": "toNumber(datum.RecordCount)",
+          "as": "RecordCount"
+        },
+        {
+          "filter": "isValid(datum.Longitude) && isValid(datum.Latitude) && datum.Longitude >= 110 && datum.Longitude <= 155 && datum.Latitude >= -45 && datum.Latitude <= -10 && isValid(datum.RecordCount) && datum.RecordCount > 0"
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "color": "#B54A42",
+        "opacity": 0.55,
+        "size": 12
+      },
+      "encoding": {
+        "longitude": {
+          "field": "Longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "Latitude",
+          "type": "quantitative"
+        },
+        "tooltip": [
+          {
+            "field": "AustraliaUTMGrid10Km_ID",
+            "type": "nominal",
+            "title": "10 km grid cell"
+          },
+          {
+            "field": "RecordCount",
+            "type": "quantitative",
+            "title": "Occurrence records",
+            "format": ",.0f"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          { "State": "WA", "Longitude": 121.5, "Latitude": -26.5 },
+          { "State": "NT", "Longitude": 133.5, "Latitude": -19.5 },
+          { "State": "QLD", "Longitude": 144, "Latitude": -22 },
+          { "State": "SA", "Longitude": 135.5, "Latitude": -30 },
+          { "State": "NSW", "Longitude": 146, "Latitude": -32.5 },
+          { "State": "VIC", "Longitude": 144.5, "Latitude": -37.2 },
+          { "State": "TAS", "Longitude": 146.7, "Latitude": -42.1 }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "font": "Arial",
+        "fontSize": 11,
+        "fontWeight": "bold",
+        "color": "#51372C",
+        "align": "center",
+        "baseline": "middle"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "Longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "Latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "State",
+          "type": "nominal"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "Longitude": 149.1,
+            "Latitude": -35.5,
+            "Longitude2": 153,
+            "Latitude2": -34
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "stroke": "#51372C",
+        "strokeWidth": 1.2,
+        "strokeDash": [4, 3]
+      },
+      "encoding": {
+        "longitude": {
+          "field": "Longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "Latitude",
+          "type": "quantitative"
+        },
+        "longitude2": {
+          "field": "Longitude2"
+        },
+        "latitude2": {
+          "field": "Latitude2"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "Longitude": 153,
+            "Latitude": -34,
+            "Label": "ACT"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "font": "Arial",
+        "fontSize": 12,
+        "fontWeight": "bold",
+        "color": "#51372C",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 5
+      },
+      "encoding": {
+        "longitude": {
+          "field": "Longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "Latitude",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "Label",
+          "type": "nominal"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    }
+  }
+}

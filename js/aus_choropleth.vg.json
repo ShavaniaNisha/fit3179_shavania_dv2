@@ -1,0 +1,255 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "transparent",
+  "width": "container",
+  "height": 420,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "projection": {
+    "type": "mercator",
+    "center": [134, -28],
+    "scale": 460
+  },
+  "layer": [
+    {
+      "data": {
+        "sphere": true
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#E5F0F4",
+        "stroke": null
+      }
+    },
+    {
+      "data": {
+        "graticule": {
+          "step": [5, 5]
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": null,
+        "stroke": "#B5CED7",
+        "strokeWidth": 0.7,
+        "opacity": 0.8
+      }
+    },
+    {
+      "data": {
+        "url": "data/SI2_DataAbundance.csv",
+        "format": {
+          "type": "csv"
+        }
+      },
+      "transform": [
+        {
+          "calculate": "toNumber(datum.RabbitsPerKm)",
+          "as": "Abundance"
+        },
+        {
+          "filter": "isValid(datum.Abundance) && datum.Abundance >= 0"
+        },
+        {
+          "aggregate": [
+            {
+              "op": "mean",
+              "field": "Abundance",
+              "as": "MeanAbundance"
+            },
+            {
+              "op": "count",
+              "as": "SurveyRecords"
+            }
+          ],
+          "groupby": ["AustraliaState"]
+        },
+        {
+          "calculate": "{'NSW':0,'VIC':1,'QLD':2,'SA':3,'WA':4,'TAS':5,'NT':6,'ACT':7}[datum.AustraliaState]",
+          "as": "StateID"
+        },
+        {
+          "filter": "isValid(datum.StateID)"
+        },
+        {
+          "lookup": "StateID",
+          "from": {
+            "data": {
+              "url": "data/au-states-topo.json",
+              "format": {
+                "type": "topojson",
+                "feature": "austates"
+              }
+            },
+            "key": "id",
+            "fields": ["geometry"]
+          },
+          "as": ["StateGeometry"]
+        },
+        {
+          "filter": "isValid(datum.StateGeometry)"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#FFFFFF",
+        "strokeWidth": 1.2
+      },
+      "encoding": {
+        "shape": {
+          "field": "StateGeometry",
+          "type": "geojson"
+        },
+        "color": {
+          "field": "MeanAbundance",
+          "type": "quantitative",
+          "title": "Mean rabbits / km",
+          "scale": {
+            "scheme": "reds"
+          },
+          "legend": {
+            "orient": "right",
+            "format": ".1f"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "AustraliaState",
+            "type": "nominal",
+            "title": "State / Territory"
+          },
+          {
+            "field": "MeanAbundance",
+            "type": "quantitative",
+            "title": "Mean rabbits / km",
+            "format": ".2f"
+          },
+          {
+            "field": "SurveyRecords",
+            "type": "quantitative",
+            "title": "Survey records",
+            "format": ",.0f"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          { "state": "WA", "lon": 122.5, "lat": -26 },
+          { "state": "NT", "lon": 133.5, "lat": -19 },
+          { "state": "QLD", "lon": 145, "lat": -23 },
+          { "state": "SA", "lon": 135, "lat": -30 },
+          { "state": "NSW", "lon": 147, "lat": -32.5 },
+          { "state": "VIC", "lon": 144, "lat": -37.2 },
+          { "state": "TAS", "lon": 146.7, "lat": -42 }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "font": "Arial",
+        "fontSize": 13,
+        "fontWeight": "bold",
+        "color": "#51372c",
+        "align": "center",
+        "baseline": "middle"
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "state",
+          "type": "nominal"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "lon": 149.1,
+            "lat": -35.5,
+            "lon2": 153,
+            "lat2": -34
+          }
+        ]
+      },
+      "mark": {
+        "type": "rule",
+        "stroke": "#51372C",
+        "strokeWidth": 1.5,
+        "strokeDash": [4, 3]
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "longitude2": {
+          "field": "lon2"
+        },
+        "latitude2": {
+          "field": "lat2"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "lon": 153,
+            "lat": -34,
+            "label": "ACT"
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "font": "Arial",
+        "fontSize": 13,
+        "fontWeight": "bold",
+        "color": "#51372C",
+        "align": "left",
+        "baseline": "middle",
+        "dx": 5
+      },
+      "encoding": {
+        "longitude": {
+          "field": "lon",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "lat",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "label",
+          "type": "nominal"
+        }
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "legend": {
+      "labelFont": "Arial",
+      "labelColor": "#735D4D",
+      "titleFont": "Arial",
+      "titleColor": "#51372C"
+    }
+  }
+}

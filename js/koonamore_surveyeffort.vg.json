@@ -1,0 +1,178 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": "container",
+  "height": 340,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "background": "transparent",
+  "data": {
+    "url": "data/koonamore_surveyeffort.csv"
+  },
+  "transform": [
+    {
+      "calculate": "datum.Decade + 's'",
+      "as": "DecadeLabel"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "AvgSurveyEffort",
+      "type": "quantitative",
+      "scale": {
+        "domain": [100, 170],
+        "nice": false
+      },
+      "axis": {
+        "title": "Average survey effort (hours)",
+        "values": [110, 120, 130, 140, 150, 160],
+        "labelFontSize": 12,
+        "titleFontSize": 13,
+        "grid": true,
+        "gridColor": "#EAE0D2"
+      }
+    },
+    "y": {
+      "field": "AvgWarrenCount",
+      "type": "quantitative",
+      "scale": {
+        "domain": [-50, 190],
+        "nice": false
+      },
+      "axis": {
+        "title": "Average warrens",
+        "values": [0, 50, 100, 150],
+        "labelFontSize": 12,
+        "titleFontSize": 13,
+        "grid": true,
+        "gridColor": "#EAE0D2"
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "circle",
+        "filled": true,
+        "opacity": 0.85,
+        "stroke": "#FFFFFF",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "size": {
+          "field": "SurveyCount",
+          "type": "quantitative",
+          "scale": {
+            "range": [200, 1600]
+          },
+          "legend": {
+            "title": "Number of surveys",
+            "orient": "bottom",
+            "direction": "horizontal",
+            "values": [5, 10, 20],
+            "symbolFillColor": "#B54A42",
+            "symbolStrokeColor": "#FFFFFF"
+          }
+        },
+        "color": {
+          "field": "DecadeLabel",
+          "type": "nominal",
+          "scale": {
+            "domain": ["1970s", "1980s", "1990s", "2000s", "2010s"],
+            "range": ["#E9B7A2", "#D98672", "#C56355", "#B54A42", "#7D302D"]
+          },
+          "legend": {
+            "title": "Decade",
+            "orient": "bottom",
+            "direction": "horizontal",
+            "symbolSize": 80
+          }
+        },
+        "tooltip": [
+          {
+            "field": "DecadeLabel",
+            "type": "nominal",
+            "title": "Decade"
+          },
+          {
+            "field": "AvgSurveyEffort",
+            "type": "quantitative",
+            "title": "Average effort (hours)",
+            "format": ".2f"
+          },
+          {
+            "field": "AvgWarrenCount",
+            "type": "quantitative",
+            "title": "Average warrens",
+            "format": ".2f"
+          },
+          {
+            "field": "SurveyCount",
+            "type": "quantitative",
+            "title": "Total surveys"
+          },
+          {
+            "field": "ValidEffort",
+            "type": "quantitative",
+            "title": "Surveys with recorded effort"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "align": "center",
+        "baseline": "middle",
+        "font": "Arial",
+        "fontSize": 14,
+        "fontWeight": "bold",
+        "color": "#ffffff"
+      },
+      "encoding": {
+        "text": {
+          "field": "SurveyCount",
+          "type": "quantitative",
+          "format": "d"
+        }
+      }
+    }
+  ],
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "Arial",
+      "labelFontSize": 12,
+      "labelFontWeight": "normal",
+      "labelColor": "#735D4D",
+
+      "titleFont": "Arial",
+      "titleFontSize": 14,
+      "titleFontWeight": "bold",
+      "titleColor": "#51372C",
+
+      "gridColor": "#D9CABB",
+      "domainColor": "#8B7462",
+      "tickColor": "#8B7462"
+    },
+    "legend": {
+      "labelFont": "Arial",
+      "labelFontSize": 12,
+      "labelColor": "#604B3D",
+      "titleFont": "Arial",
+      "titleFontSize": 13,
+      "titleFontWeight": "bold",
+      "titleColor": "#51372C",
+      "layout": {
+        "bottom": {
+          "anchor": "middle",
+          "direction": "vertical"
+        }
+      }
+    }
+  }
+}

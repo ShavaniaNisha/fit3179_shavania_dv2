@@ -1,0 +1,164 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Proportional-symbol map showing reported survey transects per occupied 10 km grid cell.",
+  "background": "transparent",
+  "width": "container",
+  "height": 420,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "padding": {
+    "left": 0,
+    "right": 0,
+    "top": 10,
+    "bottom": 10
+  },
+  "projection": {
+    "type": "mercator",
+    "center": [134, -28],
+    "scale": 420
+  },
+  "layer": [
+    {
+      "data": {
+        "sphere": true
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#E5F0F4"
+      }
+    },
+    {
+      "data": {
+        "graticule": {
+          "step": [5, 5]
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": null,
+        "stroke": "#B5CED7",
+        "strokeWidth": 0.7
+      }
+    },
+    {
+      "data": {
+        "url": "data/au-states-topo.json",
+        "format": {
+          "type": "topojson",
+          "feature": "austates"
+        }
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#F5F1EB",
+        "stroke": "#9C9185",
+        "strokeWidth": 0.7
+      }
+    },
+    {
+      "data": {
+        "url": "data/rabbit_survey_coverage.csv",
+        "format": {
+          "type": "csv"
+        }
+      },
+      "transform": [
+        {
+          "calculate": "toNumber(datum.Longitude)",
+          "as": "Longitude"
+        },
+        {
+          "calculate": "toNumber(datum.Latitude)",
+          "as": "Latitude"
+        },
+        {
+          "calculate": "toNumber(datum.TransectCount)",
+          "as": "TransectCount"
+        },
+        {
+          "filter": "isValid(datum.Longitude) && isValid(datum.Latitude) && isValid(datum.TransectCount) && datum.TransectCount > 0"
+        }
+      ],
+      "mark": {
+        "type": "circle",
+        "color": "#B54A42",
+        "opacity": 0.55,
+        "stroke": "#87332F",
+        "strokeWidth": 0.5
+      },
+      "encoding": {
+        "longitude": {
+          "field": "Longitude",
+          "type": "quantitative"
+        },
+        "latitude": {
+          "field": "Latitude",
+          "type": "quantitative"
+        },
+        "size": {
+          "field": "TransectCount",
+          "type": "quantitative",
+          "scale": {
+            "type": "linear",
+            "zero": true,
+            "range": [20, 850]
+          },
+          "legend": {
+            "title": "Transects per grid",
+            "orient": "bottom",
+            "direction": "horizontal",
+            "symbolFillColor": "#B54A42",
+            "symbolStrokeColor": "#87332F",
+            "symbolFillOpacity": 0.65,
+            "titlePadding": 10
+          }
+        },
+        "tooltip": [
+          {
+            "field": "GridID",
+            "type": "nominal",
+            "title": "10 km grid"
+          },
+          {
+            "field": "State",
+            "type": "nominal",
+            "title": "State (source label)"
+          },
+          {
+            "field": "TransectCount",
+            "type": "quantitative",
+            "title": "Reported transects",
+            "format": ",.0f"
+          },
+          {
+            "field": "RecordCount",
+            "type": "quantitative",
+            "title": "Survey data rows",
+            "format": ",.0f"
+          },
+          {
+            "field": "TransectCountVaries",
+            "type": "nominal",
+            "title": "Transect counts vary?"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "legend": {
+      "labelFont": "Arial",
+      "labelFontSize": 12,
+      "labelColor": "#735D4D",
+      "titleFont": "Arial",
+      "titleFontSize": 13,
+      "titleFontWeight": "bold",
+      "titleColor": "#51372C"
+    }
+  }
+}

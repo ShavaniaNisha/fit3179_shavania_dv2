@@ -1,0 +1,104 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "transparent",
+  "width": "container",
+  "height": 340,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "data": {
+    "url": "data/rabbit_source_counts.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "transform": [
+    {
+      "filter": "isValid(datum.DataSourceName) && datum.DataSourceName != ''"
+    },
+    {
+      "calculate": "toNumber(datum.RecordCount)",
+      "as": "RecordCount"
+    },
+    {
+      "filter": "isValid(datum.RecordCount) && datum.RecordCount > 0"
+    },
+    {
+      "window": [
+        {
+          "op": "rank",
+          "as": "SourceRank"
+        }
+      ],
+      "sort": [
+        {
+          "field": "RecordCount",
+          "order": "descending"
+        }
+      ]
+    },
+    {
+      "filter": "datum.SourceRank <= 12"
+    }
+  ],
+  "mark": {
+    "type": "circle",
+    "size": 150,
+    "color": "#B54A42",
+    "opacity": 0.85
+  },
+  "encoding": {
+    "y": {
+      "field": "DataSourceName",
+      "type": "nominal",
+      "sort": {
+        "field": "RecordCount",
+        "order": "descending"
+      },
+      "title": null,
+      "axis": {
+        "title": null,
+        "labelLimit": 125,
+        "labelFontSize": 10,
+        "labelColor": "#735D4D",
+        "labelFont": "Arial",
+        "labelPadding": 5
+      }
+    },
+    "x": {
+      "field": "RecordCount",
+      "type": "quantitative",
+      "title": "Number of occurrence records (square-root scale)",
+      "scale": {
+        "type": "sqrt",
+        "zero": true
+      },
+      "axis": {
+        "format": "~s",
+        "grid": true
+      }
+    },
+    "tooltip": [
+      {
+        "field": "DataSourceName",
+        "type": "nominal",
+        "title": "Data source"
+      },
+      {
+        "field": "RecordCount",
+        "type": "quantitative",
+        "title": "Occurrence records",
+        "format": ",.0f"
+      }
+    ]
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "gridColor": "#D9CABB"
+    }
+  }
+}

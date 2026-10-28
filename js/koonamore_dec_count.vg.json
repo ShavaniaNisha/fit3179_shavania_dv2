@@ -1,0 +1,137 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+
+  "width": "container",
+  "height": 260,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "background": "transparent",
+  "data": {
+    "url": "data/koonamore_dec_count.csv"
+  },
+  "transform": [
+    {
+      "calculate": "datum.Decade + 's'",
+      "as": "DecadeLabel"
+    }
+  ],
+  "encoding": {
+    "x": {
+      "field": "DecadeLabel",
+      "type": "ordinal",
+      "sort": ["1970s", "1980s", "1990s", "2000s", "2010s"],
+      "axis": {
+        "title": "Decade",
+        "labelAngle": 0,
+        "labelFontSize": 13,
+        "titleFontSize": 14,
+        "labelPadding": 10
+      }
+    },
+    "y": {
+      "field": "AverageWarrens",
+      "type": "quantitative",
+      "scale": {
+        "zero": true
+      },
+      "axis": {
+        "title": "Average warrens",
+        "labelFontSize": 12,
+        "titleFontSize": 13,
+        "grid": true,
+        "gridColor": "#EAE0D2"
+      }
+    }
+  },
+  "layer": [
+    {
+      "mark": {
+        "type": "rule",
+        "stroke": "#B54A42",
+        "strokeWidth": 3
+      },
+      "encoding": {
+        "y2": {
+          "datum": 0
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "circle",
+        "filled": true,
+        "color": "#B54A42",
+        "size": 190,
+        "stroke": "#FFFFFF",
+        "strokeWidth": 1.5
+      },
+      "encoding": {
+        "tooltip": [
+          {
+            "field": "DecadeLabel",
+            "type": "nominal",
+            "title": "Decade"
+          },
+          {
+            "field": "AverageWarrens",
+            "type": "quantitative",
+            "title": "Average warrens",
+            "format": ".2f"
+          },
+          {
+            "field": "SurveyCount",
+            "type": "quantitative",
+            "title": "December surveys",
+            "format": "d"
+          }
+        ]
+      }
+    },
+    {
+      "mark": {
+        "type": "text",
+        "font": "Arial",
+        "fontSize": 13,
+        "fontWeight": "bold",
+        "color": "#51372C",
+        "dy": -12
+      },
+      "encoding": {
+        "text": {
+          "field": "AverageWarrens",
+          "type": "quantitative",
+          "format": ".1f"
+        }
+      }
+    }
+  ],
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "Arial",
+      "labelFontSize": 12,
+      "labelFontWeight": "normal",
+      "labelColor": "#735D4D",
+
+      "titleFont": "Arial",
+      "titleFontSize": 14,
+      "titleFontWeight": "bold",
+      "titleColor": "#51372C"
+    },
+    "legend": {
+      "labelFont": "Arial",
+      "labelFontSize": 12,
+      "labelColor": "#604B3D",
+
+      "titleFont": "Arial",
+      "titleFontSize": 13,
+      "titleFontWeight": "bold",
+      "titleColor": "#51372C"
+    }
+  }
+}

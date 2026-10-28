@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Australia's Rabbit Footprint</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+
+    <!-- Vega-Lite libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  </head>
+
+  <body>
+    <main class="container">
+      <!-- WEBSITE INTRODUCTION -->
+      <header class="story-hero">
+        <h1>The Rabbit Footprint</h1>
+
+        <p class="hero-subtitle">
+          Tracing rabbit record, abundance and environmental patterns across
+          Australia
+        </p>
+      </header>
+
+      <div class="story-intro">
+        <p>
+          The visualisation explores decades of rabbit monitoring data. Map
+          charts reveal geographical patterns in survey coverage. Other
+          visualisations compare records, abundance and environmental condition
+          on rabbit recording. Koonamore survey provide closer look at warren
+          activity.
+        </p>
+
+        <p class="data-note">
+          <strong>How to read the data:</strong>
+          Occurrence records show where rabbits were reported. Abundance surveys
+          measure rabbits observed per kilometre.
+          <strong>Note: More records don't mean more rabbits</strong>
+        </p>
+      </div>
+
+      <!-- Investigation of rabbit recording activity -->
+      <div class="story-title">
+        <h2>What Do Rabbit Records Tell Us?</h2>
+        <p class="story-introduction">
+          A rise in recorded rabbit sightings does not necessarily mean rabbit
+          populations increased. Understanding when records were collected, who
+          contributed them, and how abundance was surveyed helps us interpret
+          the evidence.
+        </p>
+      </div>
+
+      <div class="chart-layout">
+        <!-- Full width chart - single column -->
+        <section class="chart-card chart-full">
+          <h3>How Have Rabbit Occurrence Records Changed Over Time?</h3>
+
+          <p>
+            Explore how the number of recorded occurrences changed across the
+            years
+          </p>
+
+          <!-- Area chart over time -->
+          <div id="aus_history_area" class="chart"></div>
+
+          <p class="annotation">
+            Occurrence records surged in later monitoring years. The database
+            combine records from multiple monitoring programmes. Increased
+            reporting could explain the spike rather than population growth
+            (Roy‐Dufresne et al., 2019).
+          </p>
+        </section>
+
+        <!-- Half width class - 2 column chart layout -->
+        <section class="chart-card chart-half">
+          <h3>Who Contributed Australia's Rabbit Records?</h3>
+          <p>Compare the contributions of different data sources</p>
+          <!-- Source data dot plot -->
+          <div id="aus_datasrc_dot" class="chart"></div>
+
+          <p class="annotation">
+            Records come from various sources and monitoring methods.
+            Differences in method and effort explain why some sources dominate
+            the database.
+          </p>
+        </section>
+
+        <!-- Second half-width chart -->
+        <section class="chart-card chart-half">
+          <h3>How Have Rabbit Abundance Rankings Changed?</h3>
+
+          <p>
+            Compare state and territory rankings using mean surveyed rabbits per
+            kilometre
+          </p>
+
+          <!-- Multi-state bump chart -->
+          <div id="aus_state_bump" class="chart"></div>
+
+          <p class="annotation">
+            ACT consistently ranked first across all three periods. South
+            Australia rose from fourth to second. Western Australia dropped from
+            second to fourth.
+          </p>
+        </section>
+      </div>
+
+      <!-- Rabbit Geography and reporting exploration -->
+      <div class="story-section">
+        <div class="story-title">
+          <h2>Where and When Were Rabbits Recorded?</h2>
+        </div>
+        <p class="story-introduction">
+          Occurrence records are unevenly distributed across Australia. First,
+          compare state totals and occupied survey grid cells; then examine how
+          reporting changed over time.
+        </p>
+        <div class="chart-layout">
+          <section class="chart-card chart-half">
+            <h3 class="chart-heading">
+              Which States Have the Most Rabbit Occurrence Records?
+            </h3>
+            <p>
+              One rabbit icon represents 10,000 occurrence records. Icon counts
+              are rounded down; exact totals appear beside each state
+            </p>
+            <div id="aus_state_isotype" class="chart"></div>
+            <p class="annotation">
+              State totals represent recorded occurrences, not rabbit population
+              size. Differences may reflect uneven monitoring coverage and
+              efforts.
+            </p>
+          </section>
+          <section class="chart-card chart-half">
+            <h3 class="chart-heading">
+              Where Have Rabbits Been Recorded Across Australia?
+            </h3>
+            <p>
+              Each dot represents one occupied survey grid cell; multiple
+              occurrence records can share a cell.
+            </p>
+            <div id="aus_occurrence_density" class="chart"></div>
+            <p class="annotation">
+              Survey locations span various Australian environments. The
+              distribution reflect recorded monitoring location and not rabbit
+              coverage.
+            </p>
+          </section>
+          <section class="chart-card chart-full">
+            <h3 class="chart-heading">
+              How Have Rabbit Records Changed Across States and Years?
+            </h3>
+            <p>
+              Darker cells represent more occurrence records for a given state
+              and year, not necessarily more rabbits living there
+            </p>
+            <div id="aus_history_heatmap" class="chart"></div>
+            <p class="annotation">
+              Recording intensity varies between states and yeears. Monitoring
+              differences may influence these patterns.
+            </p>
+          </section>
+        </div>
+      </div>
+
+      <!-- Rabbit Abundance and Survey Coverage Exploration -->
+      <div class="story-section">
+        <div class="story-title">
+          <h2>How Many Rabbits Are There?</h2>
+        </div>
+        <p class="story-introduction">
+          Occurrence records show where rabbits were reported. Abundance surveys
+          offer a different perspective by measuring rabbits observed per
+          kilometre. Survey coverage and the spread of observations are
+          important when comparing results.
+        </p>
+        <div class="chart-layout">
+          <section class="chart-card chart-full">
+            <h3 class="chart-heading">
+              Where Was Rabbit Survey Coverage Greatest?
+            </h3>
+            <p>
+              Larger circles indicate grid cells with more reported survey
+              transects, not necessarily more rabbits
+            </p>
+            <div id="aus_survey_coverage" class="chart"></div>
+            <p class="annotation">
+              Monitoring was conducted across various locations and conditions.
+              Survey coverage is not confirmed to be uniform.
+            </p>
+          </section>
+          <section class="chart-card chart-full">
+            <h3 class="chart-heading">
+              Where Was Surveyed Rabbit Abundance Highest?
+            </h3>
+            <p>
+              Map colours represent mean surveyed rabbits per kilometre, not
+              total rabbit populations
+            </p>
+            <div id="aus_choropleth" class="chart"></div>
+            <p class="annotation">
+              Queensland recorded the highest mean surveyed rabbit abundance.
+              Followed by the northern territories while southern states showed
+              lower averages.
+            </p>
+          </section>
+          <section class="chart-card chart-full">
+            <h3 class="chart-heading">
+              How Does Rabbit Abundance Vary Across Seasons?
+            </h3>
+            <p>
+              Examine the distribution of recorded rabbits per kilometre across
+              survey seasons.
+            </p>
+            <div id="aus_boxplot" class="chart"></div>
+            <p class="annotation">
+              Most surveys recorded relatively low rabbit abundance across
+              seasons. Season 2 showed the highest outlier and greatest extreme.
+            </p>
+          </section>
+        </div>
+      </div>
+
+      <!-- Rabbit Abundance during Rainfall -->
+      <div class="story-section">
+        <div class="story-title">
+          <h2>How Does Rainfall Relate to Rabbit Abundance?</h2>
+        </div>
+        <p class="story-introduction">
+          Rabbit abundance may vary with environmental conditions, but rainfall
+          alone cannot explain every survey result. This chart examines the
+          concentration of observations across long-term average rainfall and
+          surveyed abundance.
+        </p>
+        <div class="chart-layout">
+          <section class="chart-card chart-full">
+            <h3 class="chart-heading">
+              Where Do Rainfall and Abundance Observations Concentrate?
+            </h3>
+            <p>
+              Each hexagon groups survey observations within a
+              rainfall–abundance range. Darker colours mean more observations,
+              not higher rabbit abundance
+            </p>
+            <div id="aus_rainfall_hexbin" class="chart"></div>
+            <p class="annotation">
+              Climate information was linked with rabbit monitoring records.
+              Most observations cluster at moderate rainfall and low rabbit
+              abundance.
+            </p>
+          </section>
+        </div>
+      </div>
+
+      <!-- Koonamore Rabbit Exploration -->
+      <div class="story-section">
+        <div class="story-title">
+          <h2>A Closer Look at Koonamore</h2>
+        </div>
+
+        <p class="story-introduction">
+          Rabbit records reveal their presence across Australia. At Koonamore,
+          researchers also monitored underground rabbit warrens, providing a
+          closer look at local activity.
+        </p>
+
+        <div class="chart-layout">
+          <!-- FULL-WIDTH BUBBLE TIMELINE -->
+          <section class="chart-card chart-full">
+            <h3 class="chart-heading">
+              How Have Rabbit Warrens Changed at Koonamore?
+            </h3>
+            <p>
+              Bubble size represents the average recorded warren count for each
+              decade, not the number of individual rabbits.
+            </p>
+
+            <div id="koonamore_decade" class="chart"></div>
+
+            <p class="annotation">
+              Average recorded warren counts were highest during 1970s. Counts
+              decline substantially across subsequent decades.
+            </p>
+          </section>
+
+          <!-- HALF-WIDTH DECEMBER LOLLIPOP -->
+          <section class="chart-card chart-half">
+            <h3 class="chart-heading">A Closer Look at December Surveys</h3>
+            <p>
+              Each point represents the average number of recorded warrens in
+              December surveys for that decade.
+            </p>
+
+            <div id="koonamore_dec_count" class="chart"></div>
+
+            <p class="annotation">
+              Warren averages dropped sharply after the 1970s. The lowest
+              average occurred in the 2000s.
+            </p>
+          </section>
+
+          <!-- HALF-WIDTH SURVEY EFFORT BUBBLE CHART -->
+          <section class="chart-card chart-half">
+            <h3 class="chart-heading">
+              Does More Monitoring Reveal More Rabbit Warrens?
+            </h3>
+            <p>
+              Each bubble represents a decade. Bubble size indicates the number
+              of surveys.
+            </p>
+
+            <div id="koonamore_surveyeffort" class="chart"></div>
+
+            <p class="annotation">
+              Greater survey effort did not consistently correspond with more
+              warrens. The 1970s recorded the highest average despite fewer
+              survey hours.
+            </p>
+          </section>
+        </div>
+      </div>
+
+      <!-- Conclusion -->
+      <section class="story-conclusion">
+        <h2>What Does the Rabbit Footprint Reveal?</h2>
+
+        <p>
+          Rabbit record reveal widespread monitoring across Australia. Recording
+          varies between regions and years. More records do not indicate larger
+          rabbit population.
+        </p>
+
+        <p>
+          Abundance survey reveal variation across states and seasons. Koonamore
+          charts provide insight into local warren activity. The visualisation
+          shows the variation in rabbit monitoring in Australia.
+        </p>
+      </section>
+
+      <!-- References and Data Sources -->
+      <section class="references-section">
+        <h2>References and Data Sources</h2>
+
+        <h3>Data Source</h3>
+        <p>
+          Roy‐Dufresne, E., Lurgi, M., Brown, S. C., Wells, K., Cooke, B.,
+          Mutze, G., Peacock, D., Cassey, P., Berman, D., Brook, B. W.,
+          Campbell, S., Cox, T., Daly, J., Dunk, I., Elsworth, P., Fletcher, D.,
+          Forsyth, D. M., Hocking, G., Kovaliski, J., . . . Fordham, D. A.
+          (2019). The Australian National Rabbit Database: 50 yr of population
+          monitoring of an invasive species. Ecology, 100(7), e02750.
+          https://doi.org/10.1002/ecy.2750
+        </p>
+
+        <p>
+          TERN Data Discovery Portal. (2026, October 11).
+          https://portal.tern.org.au/metadata/6befd291-034f-4a92-a7b9-106f0af795f8
+        </p>
+
+        <h3>Geographical Data (TopoJSON)</h3>
+        <p>
+          Australia-State-TopoJson-MapChart/au-states-topo.json at master ·
+          alwaysblazing/Australia-State-TopoJson-MapChart. (n.d.). GitHub.
+          https://github.com/alwaysblazing/Australia-State-TopoJson-MapChart/blob/master/au-states-topo.json
+        </p>
+
+        <h3>Rabbit Icon</h3>
+        <p>
+          Rabbit Icon. (n.d.). SVG Repo.
+          https://www.svgrepo.com/svg/323079/rabbit
+        </p>
+
+        <h3>AI Acknowledgement</h3>
+        <p>
+          Generative AI (ChatGPT) was used for development and editing. It was
+          used to help standardise and shorten chart title and annotations. It
+          also assisted with development tasks such as chart positioning,
+          webpage layout, Visualisation styling and debugging. Final decision
+          and content were reviewed by the author.
+        </p>
+      </section>
+
+      <footer class="site-footer">
+        <strong>Author Details</strong>
+        <p>Shavania Basandan (35394943) · FIT3179 Data Visualisation 2</p>
+      </footer>
+    </main>
+
+    <script src="js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,109 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "transparent",
+  "padding": 10,
+  "width": "container",
+  "height": 380,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "data": {
+    "url": "data/rabbit_year_counts.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "transform": [
+    {
+      "calculate": "toNumber(datum.RecordYear)",
+      "as": "RecordYear"
+    },
+    {
+      "calculate": "toNumber(datum.RecordCount)",
+      "as": "RecordCount"
+    },
+    {
+      "filter": "isValid(datum.RecordYear) && datum.RecordYear >= 1800 && datum.RecordYear <= 2015 && isValid(datum.RecordCount)"
+    }
+  ],
+  "params": [
+    {
+      "name": "YearRange",
+      "select": {
+        "type": "interval",
+        "encodings": ["x"],
+        "translate": false,
+        "zoom": "wheel![event.shiftKey]"
+      },
+      "bind": "scales"
+    }
+  ],
+  "mark": {
+    "type": "area",
+    "color": "#B54A42",
+    "opacity": 0.75,
+    "line": {
+      "color": "#87332F",
+      "strokeWidth": 2
+    },
+    "point": {
+      "filled": true,
+      "size": 20,
+      "opacity": 0.5
+    }
+  },
+  "encoding": {
+    "x": {
+      "field": "RecordYear",
+      "type": "quantitative",
+      "title": "Year",
+      "axis": {
+        "format": "d",
+        "tickCount": 12
+      },
+      "scale": {
+        "domain": [1800, 2015]
+      }
+    },
+    "y": {
+      "field": "RecordCount",
+      "type": "quantitative",
+      "title": "Number of occurrence records",
+      "axis": {
+        "format": "~s"
+      }
+    },
+    "tooltip": [
+      {
+        "field": "RecordYear",
+        "type": "quantitative",
+        "title": "Year",
+        "format": "d"
+      },
+      {
+        "field": "RecordCount",
+        "type": "quantitative",
+        "title": "Occurrence records",
+        "format": ",.0f"
+      }
+    ]
+  },
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null,
+      "fill": "transparent"
+    },
+    "axis": {
+      "gridColor": "#D9CABB",
+      "labelFont": "Arial",
+      "labelColor": "#735D4D",
+      "labelFontSize": 12,
+      "titleFont": "Arial",
+      "titleColor": "#51372C",
+      "titleFontSize": 14,
+      "titleFontWeight": "bold"
+    }
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "#F7F1E8",
+  "width": "container",
+  "height": 350,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "data": {
+    "url": "data/rabbit_year_state_counts.csv",
+    "format": {
+      "type": "csv"
+    }
+  },
+  "transform": [
+    {
+      "filter": "isValid(datum.RecordYear) && datum.RecordYear != '' && isValid(datum.AustraliaState) && datum.AustraliaState != ''"
+    },
+    {
+      "calculate": "toNumber(datum.RecordYear)",
+      "as": "RecordYear"
+    },
+    {
+      "calculate": "toNumber(datum.RecordCount)",
+      "as": "RecordCount"
+    },
+    {
+      "filter": "isValid(datum.RecordYear) && isValid(datum.RecordCount) && datum.RecordCount > 0"
+    }
+  ],
+  "mark": {
+    "type": "rect",
+    "stroke": "#BDAA98",
+    "strokeWidth": 0.5
+  },
+  "encoding": {
+    "x": {
+      "field": "RecordYear",
+      "type": "ordinal",
+      "title": "Year",
+      "axis": {
+        "labelAngle": 0,
+        "labelOverlap": "greedy",
+        "labelFlush": false,
+        "labelFontSize": 11,
+        "labelPadding": 8,
+        "tickSize": 0
+      }
+    },
+    "y": {
+      "field": "AustraliaState",
+      "type": "nominal",
+      "title": "State / Territory",
+      "sort": ["QLD", "VIC", "NSW", "WA", "SA", "TAS", "ACT", "NT"],
+      "axis": {
+        "labelFontSize": 12,
+        "labelPadding": 8,
+        "tickSize": 0
+      }
+    },
+    "color": {
+      "field": "RecordCount",
+      "type": "quantitative",
+      "title": "Occurrence records",
+      "scale": {
+        "range": ["#F3D4B9", "#E6A18B", "#C86B5C", "#B54A42", "#87332F"]
+      },
+      "legend": {
+        "orient": "right",
+        "format": "~s",
+        "gradientLength": 180,
+        "gradientThickness": 14,
+        "titleLimit": 150
+      }
+    },
+    "tooltip": [
+      {
+        "field": "AustraliaState",
+        "type": "nominal",
+        "title": "State / Territory"
+      },
+      {
+        "field": "RecordYear",
+        "type": "ordinal",
+        "title": "Year"
+      },
+      {
+        "field": "RecordCount",
+        "type": "quantitative",
+        "title": "Occurrence records",
+        "format": ",.0f"
+      }
+    ]
+  },
+  "config": {
+    "view": {
+      "stroke": null
+    },
+    "axis": {
+      "labelFont": "Arial",
+      "labelFontSize": 12,
+      "labelFontWeight": "normal",
+      "labelColor": "#735D4D",
+      "titleFont": "Arial",
+      "titleFontSize": 14,
+      "titleFontWeight": "bold",
+      "titleColor": "#51372C",
+      "domainColor": "#8B7462",
+      "tickColor": "#8B7462",
+      "grid": false
+    },
+    "legend": {
+      "labelFont": "Arial",
+      "labelFontSize": 12,
+      "labelColor": "#604B3D",
+      "titleFont": "Arial",
+      "titleFontSize": 13,
+      "titleFontWeight": "bold",
+      "titleColor": "#51372C"
+    }
+  }
+}

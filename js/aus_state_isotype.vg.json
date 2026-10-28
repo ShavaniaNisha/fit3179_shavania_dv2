@@ -1,0 +1,175 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "background": "transparent",
+  "width": "container",
+  "height": 430,
+  "autosize": {
+    "type": "fit",
+    "contains": "padding"
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "data/rabbit_isotype_icons.csv"
+      },
+      "mark": {
+        "type": "image",
+        "width": 25,
+        "height": 25,
+        "tooltip": true
+      },
+      "encoding": {
+        "x": {
+          "field": "GridColumn",
+          "type": "quantitative",
+          "scale": {
+            "domain": [-0.6, 9.6]
+          },
+          "axis": {
+            "title": null,
+            "labels": false,
+            "ticks": false,
+            "domain": false,
+            "grid": false
+          }
+        },
+        "y": {
+          "field": "GridRow",
+          "type": "quantitative",
+          "scale": {
+            "domain": [-1.0, 10.0],
+            "reverse": true
+          },
+          "axis": {
+            "title": null,
+            "labels": false,
+            "ticks": false,
+            "domain": false,
+            "grid": false
+          }
+        },
+        "url": {
+          "value": "data/rabbit-svg.svg"
+        },
+        "tooltip": [
+          {
+            "field": "AustraliaState",
+            "type": "nominal",
+            "title": "State"
+          },
+          {
+            "field": "RecordCount",
+            "type": "quantitative",
+            "title": "Exact occurrence records",
+            "format": ","
+          },
+          {
+            "field": "IconCount",
+            "type": "quantitative",
+            "title": "Whole rabbit icons"
+          }
+        ]
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "AustraliaState": "QLD",
+            "RecordCount": 543602,
+            "labelY": -0.65
+          },
+          {
+            "AustraliaState": "VIC",
+            "RecordCount": 105780,
+            "labelY": 6.35
+          },
+          {
+            "AustraliaState": "WA",
+            "RecordCount": 18385,
+            "labelY": 8.35
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "left",
+        "baseline": "middle",
+        "font": "Arial",
+        "fontSize": 14,
+        "fontWeight": "bold",
+        "color": "#51372C"
+      },
+      "encoding": {
+        "x": {
+          "datum": 0,
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "labelY",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "AustraliaState",
+          "type": "nominal"
+        }
+      }
+    },
+    {
+      "data": {
+        "values": [
+          {
+            "AustraliaState": "QLD",
+            "CountLabel": "543,602 records",
+            "labelY": -0.65
+          },
+          {
+            "AustraliaState": "VIC",
+            "CountLabel": "105,780 records",
+            "labelY": 6.35
+          },
+          {
+            "AustraliaState": "WA",
+            "CountLabel": "18,385 records",
+            "labelY": 8.35
+          }
+        ]
+      },
+      "mark": {
+        "type": "text",
+        "align": "right",
+        "baseline": "middle",
+        "font": "Arial",
+        "fontSize": 12,
+        "color": "#735D4D"
+      },
+      "encoding": {
+        "x": {
+          "datum": 9,
+          "type": "quantitative"
+        },
+        "y": {
+          "field": "labelY",
+          "type": "quantitative"
+        },
+        "text": {
+          "field": "CountLabel",
+          "type": "nominal"
+        }
+      }
+    }
+  ],
+  "resolve": {
+    "scale": {
+      "x": "shared",
+      "y": "shared"
+    }
+  },
+  "config": {
+    "background": "transparent",
+    "view": {
+      "stroke": null,
+      "fill": "transparent"
+    }
+  }
+}
